@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import ItemList from '../item-list/item-list';
-import ErrorIndicator from '../error-indicator/error-indicator';
 
 import './people-page.css';
-import PersonDetails from "../people-detail/people-detail";
+import ItemDetails from "../item-detail/item-detail";
 import SwapiService from "../../services/swapi-service";
 import Row from "../utils/Row";
+import ErrorBoundary from "../utils/error-boundary";
+
 
 export default class PeoplePage extends Component {
 
@@ -14,26 +15,13 @@ export default class PeoplePage extends Component {
 
     state = {
         selectedPerson: 3,
-        hasError: false
     };
-
-    componentDidCatch(error, info) {
-
-        this.setState({
-            hasError: true
-        });
-    }
 
     onPersonSelected = (selectedPerson) => {
         this.setState({ selectedPerson });
     };
 
     render() {
-
-        if (this.state.hasError) {
-            return <ErrorIndicator />;
-        }
-
         const itemList = (
             <ItemList onItemSelected={this.onPersonSelected}
                       getData={this.swapiService.getAllPeople}>
@@ -42,9 +30,12 @@ export default class PeoplePage extends Component {
         );
 
         const personDetails = (
-            <PersonDetails personId={this.state.selectedPerson} />
+            <ItemDetails personId={this.state.selectedPerson} />
         );
 
-        return (<Row left = {itemList} right={personDetails}/>);
+        return (
+            <ErrorBoundary>
+                <Row left = {itemList} right={personDetails}/>
+            </ErrorBoundary>);
     }
 }

@@ -7,9 +7,9 @@ import './app.css';
 import ErrorIndicator from "../error-indicator/error-indicator";
 import PeoplePage from "../people-page/people-page";
 import ErrorButton from "../error-button/error-button";
-import ItemList from "../item-list/item-list";
-import PersonDetails from "../people-detail/people-detail";
 import SwapiService from "../../services/swapi-service";
+import Row from "../utils/Row";
+import ItemDetails, {Record} from "../item-detail/item-detail";
 
 export default class  App extends Component{
 
@@ -40,21 +40,31 @@ export default class  App extends Component{
             return <ErrorIndicator />
         }
 
+        const {getPerson, getStarShip, getPersonImage, getStarShipImage} = this.swapiService;
+
+        const personDetails = (<ItemDetails itemId = {11}
+                                            getData={getPerson}
+                                            getImageUrl={getPersonImage}>
+                                    <Record field="gender" label="Gender" />
+                                    <Record field="eyeColor" label="Eye Color" />
+
+                                </ItemDetails>);
+
+        const starShipDetails = (<ItemDetails itemId = {5}
+                                              getData={getStarShip}
+                                              getImageUrl={getStarShipImage}>
+                                    <Record field="model" label="Model" />
+                                    <Record field="length" label="Length" />
+                                    <Record field="costInCredits" label="Cost" />
+                                </ItemDetails>);
         return (
             <div className="stardb-app">
                 <Header />
                 { planet }
 
-                <div className="row mb2 button-row">
-                    <button
-                        className="toggle-planet btn btn-warning btn-lg"
-                        onClick={this.toggleRandomPlanet}>
-                        Toggle Random Planet
-                    </button>
-                    <ErrorButton />
-                </div>
 
-                <PeoplePage />
+
+                <Row left={personDetails} right={starShipDetails}/>
             </div>
         );
     };

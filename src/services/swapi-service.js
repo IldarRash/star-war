@@ -2,9 +2,11 @@ export default class SwapiService {
 
     _apiBase = 'https://swapi.co/api';
 
-    getResource = async (url) =>  {
-        const res = await fetch(`${this._apiBase}${url}`);
+    _imageBase = 'https://starwars-visualguide.com/assets/img';
 
+    getResource = async (url) =>  {
+
+        const res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
             throw new Error(`Could not fetch ${url}` +
                 `, received ${res.status}`)
@@ -37,9 +39,9 @@ export default class SwapiService {
         return res.results.map(this._transformStarship);
     };
 
-    getStarship = async (id) => {
-        const starship = this.getResource(`/starships/${id}/`);
-        return this._transformStarship(starship);
+    getStarShip = async (id) => {
+        const starship =await this.getResource(`/starships/${id}/`);
+        return this._transformStarShip(starship);
     };
 
     _exctractId = (item) => {
@@ -58,7 +60,7 @@ export default class SwapiService {
         };
     };
 
-    _transformStarship = (starship) => {
+    _transformStarShip = (starship) => {
         return {
             id: this._exctractId(starship),
             name: starship.name,
@@ -73,7 +75,6 @@ export default class SwapiService {
     };
 
     _transformPerson = (person) => {
-        console.log(person);
         return {
             id: this._exctractId(person),
             name: person.name,
@@ -82,4 +83,16 @@ export default class SwapiService {
             eyeColor: person.eye_color
         }
     };
+
+    getPersonImage = ({id}) => {
+        return `${this._imageBase}/characters/${id}.jpg`;
+    }
+
+    getStarShipImage = ({id}) => {
+        return `${this._imageBase}/starships/${id}.jpg`;
+    }
+
+    getPlanetImage = ({id}) => {
+        return `${this._imageBase}/planets/${id}.jpg`;
+    }
 }
