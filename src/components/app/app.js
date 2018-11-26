@@ -5,11 +5,18 @@ import RandomPlanet from '../random-planet';
 
 import './app.css';
 import ErrorIndicator from "../error-indicator/error-indicator";
-import PeoplePage from "../people-page/people-page";
-import ErrorButton from "../error-button/error-button";
 import SwapiService from "../../services/swapi-service";
-import Row from "../utils/Row";
+import Row from "../utils/row";
 import ItemDetails, {Record} from "../item-detail/item-detail";
+
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails,
+    PersonList,
+    PlanetList,
+    StarshipList
+} from '../sw-components';
 
 export default class  App extends Component{
 
@@ -62,7 +69,11 @@ export default class  App extends Component{
                 <Header />
                 { planet }
 
+                <PersonList />
 
+                <StarshipList />
+
+                <PlanetList />
 
                 <Row left={personDetails} right={starShipDetails}/>
             </div>

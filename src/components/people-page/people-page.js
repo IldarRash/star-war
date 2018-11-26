@@ -5,7 +5,7 @@ import ItemList from '../item-list/item-list';
 import './people-page.css';
 import ItemDetails from "../item-detail/item-detail";
 import SwapiService from "../../services/swapi-service";
-import Row from "../utils/Row";
+import Row from "../utils/row";
 import ErrorBoundary from "../utils/error-boundary";
 
 
