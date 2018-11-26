@@ -2,7 +2,7 @@ import ItemDetails, {Record} from "../item-detail/item-detail";
 import React from "react";
 import withSwapiService from "../hoc-helpers/with-swapi-service";
 
-const StarshipDetails = ({ props }) => {
+const StarshipDetails = (props) => {
     return (
         <ItemDetails {...props}>
 
@@ -20,4 +20,4 @@ const mapMethodsService = (swapiService) => {
     }
 };
 
-export default withSwapiService(StarshipDetails, mapMethodsService);
+export default withSwapiService(mapMethodsService)(StarshipDetails);

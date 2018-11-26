@@ -20,4 +20,4 @@ const mapMethodsService = (swapiService) => {
     }
 };
 
-export default withSwapiService(PersonDetails, mapMethodsService);
+export default withSwapiService(mapMethodsService)(PersonDetails);

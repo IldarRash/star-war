@@ -27,22 +27,26 @@ export default class ItemDetails extends Component {
     };
 
     componentDidMount() {
-        this.updateitem();
+        this.updateItem();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.itemId !== prevProps.itemId || this.props.getData !== prevProps.getData) {
-            this.updateitem();
+        if (this.props.itemId !== prevProps.itemId) {
+            this.updateItem();
         }
     }
 
-    updateitem() {
+    updateItem() {
         const {itemId, getData, getImageUrl} = this.props;
+
+
         if(!itemId) {
             return;
         }
 
+
         getData(itemId).then((item) => {
+                console.log(item);
                 this.setState({ item,
                 loaded: false,
                 image: getImageUrl(item)});
